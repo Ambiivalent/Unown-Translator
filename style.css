@@ -60,8 +60,13 @@ button {
     margin: auto;
     border: 4px aliceblue;
     border-style: ridge;
+}
 
-
+.image-box-select {
+    width:25%;
+    margin: auto;
+    border: 4px aliceblue;
+    border-style: ridge;
 }
 
 .text-box {
@@ -71,4 +76,12 @@ button {
 .intro {
     display:block;
     margin: auto;
+}
+
+.unown-letter {
+    transition: transform .2s;
+}
+
+.unown-letter:hover {
+    transform: scale(1.5);
 }

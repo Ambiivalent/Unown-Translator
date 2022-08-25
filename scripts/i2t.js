@@ -27,43 +27,29 @@ const db = new Map([
     ["z", "https://img.pokemondb.net/sprites/emerald/normal/unown-z.png"],
     ["!", "https://img.pokemondb.net/sprites/emerald/normal/unown-em.png"],
     ["?", "https://img.pokemondb.net/sprites/emerald/normal/unown-qm.png"],
-    ["Missing", "https://img.pokemondb.net/sprites/emerald/shiny/unown-qm.png"]
+    [" ", "img/space-bar.png"]
 ]);
 
-function convertText() {
-    if (document.getElementById("input-box").value) {
-        let user_text = document.getElementById("input-box").value.toLowerCase();
-        let image_area = document.getElementById("image-box");
-        image_area.classList.add("image-box");
-        image_area.innerHTML = "";
-        for (var i = 0; i < user_text.length; i++) {
-            let currentCharacter = user_text.charAt(i);
-            if (db.has(currentCharacter)) {
-                let character = document.createElement('img');
-                character.src = db.get(currentCharacter);
-                image_area.append(character);
-            }
-            else {
-                let character = document.createElement('img');
-                character.src = db.get("Missing");
-                image_area.append(character);
-            }
-        }
 
-        background_checkbox = document.getElementById("bckg-cb");
-        if (background_checkbox.checked) {
-            image_area.style.backgroundImage = "url(img/tile.png)";
-            image_area.style.backgroundRepeat = "repeat";
-        }
-        else {
-            image_area.style.backgroundImage = "";
-            image_area.style.backgroundRepeat = "";
-        }
-    }
-    else {
-        alert("Nothing to convert!");
-    }
+// show all images inside div first
+var selection_box = document.getElementById("select-box");
+var text_box = document.getElementById("input-box");
+for (const [key,value] of db) {
+    let new_img = document.createElement("img");
+    new_img.src = value;
+    new_img.alt = key;
+    new_img.title = `Letter ${key.toUpperCase()}`;
+    new_img.classList.add("unown-letter");
+
+    if (key == " ") { new_img.title = "Space Bar"}
+
+    selection_box.append(new_img);
 }
 
-document.getElementById('conversion-btn').addEventListener('click', convertText);
-
+// click event
+var letters = document.getElementsByClassName("unown-letter");
+for (var i = 0; i < letters.length; i++) {
+    letters[i].addEventListener("click", function () {
+        text_box.innerHTML = text_box.innerHTML + this.alt;
+    });
+}
